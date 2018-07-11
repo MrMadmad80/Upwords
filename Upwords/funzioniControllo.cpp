@@ -2,6 +2,7 @@
 #include <iostream>
 #include<string>
 #include <costanti.h>
+#include <funzioniDizionario.h>
 
 
 bool controlloSpazioOrizzontale(int lunghezzaParola, int yInizio) {
@@ -41,5 +42,27 @@ bool controlloAltezza(int r, int c, int lunghezzaParola, char direzione, int mat
                 return false;
             } else return true;
         }
+    }
+}
+
+
+bool controllaParola(std::string parola, giocatore *g) {  //controlla se ho le lettere per creare la parola inserita
+    if(controlloDizionario(parola)) {
+
+        std::vector<char> temp = g->rack;
+        for(unsigned int i=0; i<parola.length(); i++) {
+            bool flag = false;
+            for(int j=temp.size()-1; j>=0; j--) {
+                if(parola[i]==temp.at(j)) {
+                    temp.erase(temp.begin()+j);
+                    flag = true;
+                    j = 0; //per uscire subito dal ciclo
+                }
+            }
+            if(flag == false) return false;
+        }
+        return true;
+    } else {
+        return false;
     }
 }

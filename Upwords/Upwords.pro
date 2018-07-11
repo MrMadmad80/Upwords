@@ -5,16 +5,18 @@ CONFIG -= qt
 CONFIG += c++11
 
 SOURCES += main.cpp \
-    mieFunzioni.cpp \
     funzioniDizionario.cpp \
-    funzioniStampa.cpp
+    funzioniStampa.cpp \
+    funzioniControllo.cpp \
+    funzioniGioco.cpp
 
 include(deployment.pri)
 qtcAddDeployment()
 
 HEADERS += \
-    mieFunzioni.h \
     funzioniDizionario.h \
     funzioniStampa.h \
-    costanti.h
+    costanti.h \
+    funzioniControllo.h \
+    funzioniGioco.h
 
