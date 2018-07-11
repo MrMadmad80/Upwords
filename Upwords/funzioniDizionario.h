@@ -3,4 +3,5 @@
 #include<string>
 
 bool controlloDizionario(std::string parola);
+void trovaSuggerimento(giocatore *g);
 #endif // FUNZIONIDIZIONARIO_H

@@ -140,7 +140,7 @@ void inserimentoParola(string parola, char campoDiGioco[][N], int altezza[][N], 
             cout << "tentativi rimasti: " << 3 - (ntentativi+1) << endl;
             ntentativi++;
         } else {
-            if(senso=='v' && x<9 && y<9) {
+            if(senso=='v' && x<10 && y<10) {
                 if(senso=='v' && controlloSpazioVerticale(parola.length(), y) && controlloAltezza(y,x,parola.length(),senso,altezza)) {
                     for(unsigned int k=0; k<parola.length(); k++) {
                         if(parola[k]=='\0') break;
@@ -170,7 +170,7 @@ void inserimentoParola(string parola, char campoDiGioco[][N], int altezza[][N], 
                 }
             }
 
-            if(senso=='o' && x<9 && y<9) {
+            if(senso=='o' && x<10 && y<10) {
                 if(senso=='o' && controlloSpazioOrizzontale(parola.length(), x) && controlloAltezza(y,x,parola.length(), senso ,altezza)) {
                     for(unsigned int k=0; k<parola.length(); k++) {
                         if(parola[k]=='\0') break;
@@ -256,6 +256,7 @@ int main()
     inizializzaGiocatori();
 
     cout << "giocatori presenti: " << endl;
+    stampaPunteggi();
 
     for(unsigned int i=0; i<elencoGiocatori.size(); i++) {  //estrazione iniziale lettere
 
@@ -279,6 +280,15 @@ int main()
         cout << "e' il turno di: " << elencoGiocatori.at(z)->nome << endl;
 
         stampaRackGiocatore(elencoGiocatori.at(z));
+
+        char suggerimento;
+
+        cout << "vuoi un suggerimento? [s per si/qualsiasi altra per no]" <<endl;
+        cin >> suggerimento;
+
+        if(suggerimento == 's') {
+            trovaSuggerimento(elencoGiocatori.at(z));
+        }
 
         char passare;
 
