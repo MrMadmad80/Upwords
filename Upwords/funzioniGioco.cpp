@@ -114,7 +114,7 @@ void inserimentoParola(std::string parola, char campoDiGioco[][N], int altezza[]
             ntentativi++;
         } else {
             if(senso=='v' && x<10 && y<10) {
-                if(senso=='v' && controlloSpazioVerticale(parola.length(), y) && controlloAltezza(y,x,parola.length(),senso,altezza)) {
+                if(controlloSpazioVerticale(parola.length(), y) && controlloAltezza(y,x,parola.length(),senso,altezza)) {
                     for(unsigned int k=0; k<parola.length(); k++) {
                         if(parola[k]=='\0') break;
                         campoDiGioco[y+k][x] = parola[k];
@@ -144,7 +144,7 @@ void inserimentoParola(std::string parola, char campoDiGioco[][N], int altezza[]
             }
 
             if(senso=='o' && x<10 && y<10) {
-                if(senso=='o' && controlloSpazioOrizzontale(parola.length(), x) && controlloAltezza(y,x,parola.length(), senso ,altezza)) {
+                if(controlloSpazioOrizzontale(parola.length(), x) && controlloAltezza(y,x,parola.length(), senso ,altezza)) {
                     for(unsigned int k=0; k<parola.length(); k++) {
                         if(parola[k]=='\0') break;
                         campoDiGioco[y][x+k] = parola[k];

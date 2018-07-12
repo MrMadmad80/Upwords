@@ -66,3 +66,8 @@ bool controllaParola(std::string parola, giocatore *g) {  //controlla se ho le l
         return false;
     }
 }
+
+
+//bool controlloAdiacenze(std::string parola, char campoDiGioco[][N], int r, int c) {
+
+//}

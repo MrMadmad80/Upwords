@@ -2,7 +2,6 @@
 #include <vector>
 #include <string.h>
 #include <time.h>
-#include <cstdlib>
 #include <algorithm>
 #include <conio.h>
 #include <windows.h>
@@ -70,29 +69,25 @@ int main()
 
         stampaRackGiocatore(elencoGiocatori.at(z));
 
-        char suggerimento;
+        char input;
 
         cout << "vuoi un suggerimento? [s per si/qualsiasi altra per no]" <<endl;
-        cin >> suggerimento;
+        cin >> input;
 
-        if(suggerimento == 's') {
+        if(input == 's') {
             trovaSuggerimento(elencoGiocatori.at(z));
         }
 
-        char passare;
-
         cout << "premi p se vuoi passare, qualsiasi altro tasto se vuoi inserire una parola" << endl;
-        cin >> passare;
+        cin >> input;
 
-        if(passare == 'p') {
+        if(input == 'p') {
             turnoGiocato[z] = false;
 
-            char cambiareLettera;
-
             cout << "vuoi cambiare una lettera? [s per si/qualsiasi altra per no]" << endl;
-            cin >> cambiareLettera;
+            cin >> input;
             cout << endl;
-            if(cambiareLettera == 's') {
+            if(input == 's') {
                 cambiaLettera(elencoGiocatori.at(z), nLettereIniziali);
                 stampaRackGiocatore(elencoGiocatori.at(z));
             }

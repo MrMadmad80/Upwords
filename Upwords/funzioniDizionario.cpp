@@ -5,7 +5,7 @@
 #include <costanti.h>
 
 bool controlloDizionario(std::string parola) {   //controlla se la parola è presente nel dizionario
-    if(parola.length()>3) {    //controllo da specifiche solo sulle parole più lunghe di 3
+//    if(parola.length()>3) {    //controllo da specifiche solo sulle parole più lunghe di 3
         std::ifstream input;
         input.open("italiano.txt");
 
@@ -25,7 +25,20 @@ bool controlloDizionario(std::string parola) {   //controlla se la parola è pre
         //    cout << "parola non trovata" << endl;
         input.close();
         return false;
-    } else return true;
+//    } else return true;
+}
+
+
+std::string parolaPiuLunga(std::vector<std::string> suggerimenti) {
+    std::string parola;
+
+    for(int i=0; i<suggerimenti.size(); i++) {
+        if(suggerimenti.at(i).length() > parola.length()) {
+            parola = suggerimenti.at(i);
+        }
+    }
+
+    return parola;
 }
 
 
@@ -68,7 +81,7 @@ void trovaSuggerimento(giocatore *g) {
 
     }
     if(suggerimenti.size()!=0) {
-       std::cout << "suggerimento per avere piu' punti: " << suggerimenti.at(suggerimenti.size()-1) << std::endl;
+       std::cout << "suggerimento per avere piu' punti: " << parolaPiuLunga(suggerimenti) << std::endl;
     } else {
         std::cout << "non si possono formare parole" << std::endl;
     }
