@@ -85,48 +85,60 @@ void cancellaDaRack(char lettera, giocatore *g) {
 
 
 void inserimentoParola(std::string parola, char campoDiGioco[][N], int altezza[][N], giocatore *g) {
-    char senso;
-    char r;
-    char c;
+    std::string s;
+    std::string r;
+    std::string c;
 
     int ntentativi =0;
 
-    bool primoturno = false;
-
-    if(campoDiGioco[4][4]=='X') primoturno = true;
-
     while(ntentativi<3) {
         std::cout << "inserisci le coordinate di inserimento della prima lettera della parola" << std::endl ;
-        std::cout << "inserisci la colonna: ";
-        std::cin >> c;
         std::cout << "inserisci la riga: ";
         std::cin >> r;
+        std::cout << "inserisci la colonna: ";
+        std::cin >> c;
         std::cout << "inserisci il senso in cui vuoi posizionare la parola(v per verticale, o per orizzontale): ";
-        std::cin >> senso;
+        std::cin >> s;
         std::cout << std::endl;
 
-        unsigned int x = (unsigned int)c - 48;
-        unsigned int y = (unsigned int)r - 48;
+        int colonna = stoi(c);
+        int riga = stoi(r);
+        char senso = s[0];
 
-        if(primoturno && (x<4 || x>5) && (y<4 || y>5)) {
-            std::cout << "e' il primo turno, devi coprire almeno uan casella segnata con X" << std::endl;
+        if((senso!='v' && senso !='o') || colonna>9 || riga>9 || colonna<0 || riga<0) {
+//            std::cout << "riga " <<  riga << " colonna " << colonna << " senso " << senso << std::endl;
+            std::cout << "il carattere inserito non e' corretto" << std::endl;
             std::cout << "tentativi rimasti: " << 3 - (ntentativi+1) << std::endl;
             ntentativi++;
+
+        } else if(!controlloPosizione(parola,campoDiGioco, altezza,riga,colonna,senso)) {
+
+            std::cout << "non puoi posizionare la parola qui, ";
+            if((senso=='o' && !controlloSpazioOrizzontale(parola.length(), colonna)) ||
+                    (senso=='v' && !controlloSpazioVerticale(parola.length(), riga))) {
+                std::cout << "la parola e' troppo lunga per questo posto" << std::endl;
+            } else if(!controlloAltezza(riga, colonna, parola.length(), senso, altezza)) {
+                std::cout << "hai raggiunto il limite in altezza" << std::endl;
+            } else std::cout << "la parola non rispetta le regole del gioco" << std::endl;
+
+            std::cout << "tentativi rimasti: " << 3 - (ntentativi+1) << std::endl;
+            ntentativi++;
+
         } else {
-            if(senso=='v' && x<10 && y<10) {
-                if(controlloSpazioVerticale(parola.length(), y) && controlloAltezza(y,x,parola.length(),senso,altezza)) {
+            if(senso=='v') {
+                if(controlloAltezza(riga,colonna,parola.length(),senso,altezza)) {  //inserire qui controllo incroci
                     for(unsigned int k=0; k<parola.length(); k++) {
                         if(parola[k]=='\0') break;
-                        campoDiGioco[y+k][x] = parola[k];
-                        if(altezza[y+k][x]==0) {
+                        campoDiGioco[riga+k][colonna] = parola[k];
+                        if(altezza[riga+k][colonna]==0) {
                             g->punti += 2;
-                            altezza[y+k][x]++;
+                            altezza[riga+k][colonna]++;
                         } else g->punti += 1;
                         cancellaDaRack(parola[k], g);
                     }
                     if(g->rack.size()==7) g->punti += 20;
 
-                    primoturno = false;                 //tolgo i vincoli del primo turno
+                    //ciclo per togliere X
                     for(int g=0; g<N; g++) {
                         for (int h=0; h<N; h++) {
                             if(campoDiGioco[g][h]=='X') {
@@ -136,27 +148,23 @@ void inserimentoParola(std::string parola, char campoDiGioco[][N], int altezza[]
                     }
 
                     break;
-                } else{
-                    std::cout << "la parola e' troppo lunga per essere posizionata verticalmente qui" << std::endl;
-                    std::cout << "tentativi rimasti: " << 3 - (ntentativi+1) << std::endl;
-                    ntentativi++;
                 }
             }
 
-            if(senso=='o' && x<10 && y<10) {
-                if(controlloSpazioOrizzontale(parola.length(), x) && controlloAltezza(y,x,parola.length(), senso ,altezza)) {
+            if(senso=='o') {
+                if(controlloAltezza(riga,colonna,parola.length(), senso ,altezza)) {  //inserire qui controllo incroci
                     for(unsigned int k=0; k<parola.length(); k++) {
                         if(parola[k]=='\0') break;
-                        campoDiGioco[y][x+k] = parola[k];
-                        if(altezza[y][x+k]==0) {
+                        campoDiGioco[riga][colonna+k] = parola[k];
+                        if(altezza[riga][colonna+k]==0) {
                             g->punti += 2;
-                            altezza[y][x+k]++;
+                            altezza[riga][colonna+k]++;
                         } else g->punti+= 1;
                         cancellaDaRack(parola[k], g);
                     }
                     if(g->rack.size()==7) g->punti += 20;
 
-                    primoturno = false;                 //tolgo i vincoli del primo turno
+                    //ciclo per togliere X
                     for(int g=0; g<N; g++) {
                         for (int h=0; h<N; h++) {
                             if(campoDiGioco[g][h]=='X') {
@@ -166,13 +174,8 @@ void inserimentoParola(std::string parola, char campoDiGioco[][N], int altezza[]
                     }
 
                     break;
-                } else {
-                    std::cout << "la parola e' troppo lunga per essere posizionata orizzontalmente qui" << std::endl;
-                    std::cout << "tentativi rimasti: " << 3 - (ntentativi+1) << std::endl;
-                    ntentativi++;
                 }
             }
-            if((senso!='v' && senso !='o') || x>9 || y>9) std::cout << "il carattere inserito non e' corretto" << std::endl;
         }
     }
     return;

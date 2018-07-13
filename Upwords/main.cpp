@@ -20,7 +20,7 @@ int main()
     char g1[N][N];
     srand(time(0));
 
-    int nLettereIniziali[ALFABETO] = {7,3,4,5,8,3,3,3,7,1,2,5,5,5,7,3,1,5,6,5,5,1,1,2,2,1};
+    int nLettereIniziali[ALFABETO] = {7,3,4,5,8,3,3,3,7,0,0,5,5,5,7,3,1,5,6,5,5,1,0,0,0,1};
 
     for(int i=0; i<N; i++) {
         for(int k=0; k<N; k++) {
@@ -105,15 +105,16 @@ int main()
 
                 if(parola.length()<=10) {
                     int l = parola.length();
-                    cout << "lunghezza: " << l << endl;
+//                    cout << "lunghezza: " << l << endl;
 
-                    if(controllaParola(parola, elencoGiocatori.at(z))) {
+                    if(controlloDizionario(parola)) {
                         inserimentoParola(parola, g1, matriceAltezza, elencoGiocatori.at(z));
                         //riempio di nuovo il rack del giocatore
                         estrazioneLettere(elencoGiocatori.at(z)->rack, MAXRACK-elencoGiocatori.at(z)->rack.size(), nLettereIniziali);
                         flag = true;
                     } else  {
-                        cout << "la parola non e' ammessa, riprovare (tentativi rimasti: " << 3-(ntentativi+1) << ")" << endl;
+                        cout << "la parola non e' presente nel dizionario, riprovare" << endl;
+                        cout << "tentativi rimasti: " << 3-(ntentativi+1) << endl;
                         ntentativi++;
                     }
                 } else {

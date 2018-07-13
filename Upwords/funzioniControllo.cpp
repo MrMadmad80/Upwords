@@ -5,16 +5,16 @@
 #include <funzioniDizionario.h>
 
 
-bool controlloSpazioOrizzontale(int lunghezzaParola, int yInizio) {
-    if(lunghezzaParola+yInizio >10) {
+bool controlloSpazioOrizzontale(int lunghezzaParola, int colonna) {
+    if(lunghezzaParola+colonna >10) {
         return false;
     }
     return true;
 }
 
 
-bool controlloSpazioVerticale(int lunghezzaParola, int xInizio) {
-    if(lunghezzaParola+xInizio >10) {
+bool controlloSpazioVerticale(int lunghezzaParola, int riga) {
+    if(lunghezzaParola+riga >10) {
         return false;
     }
     return true;
@@ -26,19 +26,19 @@ int calcoloLunghezzaParola(std::string parola) {
 }
 
 bool controlloAltezza(int r, int c, int lunghezzaParola, char direzione, int matriceAltezza[][N]) {
-    //fare controlli verticali e orizzontali per tutta la lunghezza delle singole caselle
+    //controlli verticali e orizzontali per tutta la lunghezza della parola
 
     if(direzione == 'v') {
         for(int i=0; i<lunghezzaParola; i++) {
             if(matriceAltezza[r+i][c]>=5) {
-                std::cout << "spazio in altezza finito" << std::endl;
+//                std::cout << "spazio in altezza finito" << std::endl;
                 return false;
             } else return true;
         }
     } else {
         for(int i=0; i<lunghezzaParola; i++) {
             if(matriceAltezza[r][c+i]>=5) {
-                std::cout << "spazio in altezza finito" << std::endl;
+//                std::cout << "spazio in altezza finito" << std::endl;
                 return false;
             } else return true;
         }
@@ -68,6 +68,31 @@ bool controllaParola(std::string parola, giocatore *g) {  //controlla se ho le l
 }
 
 
-//bool controlloAdiacenze(std::string parola, char campoDiGioco[][N], int r, int c) {
+bool controlloPosizione(std::string parola, char campoDiGioco[][N], int matriceAltezza[][N],  int r, int c, char senso) {
+//controlla se posso posizionare la parola nelle coordinate inserite
 
-//}
+    if(!controlloSpazioOrizzontale(parola.length(), c)) return false;
+    if(!controlloSpazioVerticale(parola.length(),r)) return false;
+    if(!controlloAltezza(r,c,parola.length(),senso,matriceAltezza)) return false;
+
+    if(senso=='v') {
+        for(unsigned int k=0; k<parola.length(); k++) {
+//            std::cout << "riga " << r+k << " colonna " << c << " contenuto " << campoDiGioco[r+k][c] << std::endl;
+            if(campoDiGioco[r+k][c]!='.') {
+                return true;
+            }
+        }
+    }
+
+    if(senso=='o') {
+        for(unsigned int k=0; k<parola.length(); k++) {
+//            std::cout << "riga " << r << " colonna " << c+k << " contenuto " << campoDiGioco[r][c+k] << std::endl;
+                         ;
+            if(campoDiGioco[r][c+k]!='.') {
+                return true;
+            }
+        }
+    }
+
+    return false;
+}
