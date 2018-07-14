@@ -3,6 +3,7 @@
 #include<string>
 #include <costanti.h>
 #include <funzioniDizionario.h>
+#include <funzioniStampa.h>
 
 
 
@@ -96,7 +97,7 @@ std::vector<std::string> paroleSulCampo(char temp[][N]) {
             if(temp[r][c]!='.') {
                 parola.push_back(temp[r][c]);
 
-                if(temp[r][c+1]=='.' && c<N-1) {
+                if(temp[r][c+1]=='.' && c<N) {
                     parola.push_back('.');
                 }
 
@@ -112,7 +113,7 @@ std::vector<std::string> paroleSulCampo(char temp[][N]) {
             if(temp[r][c]!='.') {
                 parola.push_back(temp[r][c]);
 
-                if(temp[r+1][c]=='.' && r<N-1) {
+                if(temp[r+1][c]=='.' && r<N) {
                     parola.push_back('.');
                 }
 
@@ -168,14 +169,15 @@ bool controlloIncrocio (std::string parola, char campoDiGioco[][N], int r, int c
 
             }
 
-            //        stampaMatrice(temp);
+            //            stampaMatrice(temp);
 
             vettoreParole = paroleSulCampo(temp);
 
-            //        for(int i=0; i<vettoreParole.size(); i++) {
-            //            std::cout << vettoreParole[i] << " ";
-            //        }
-            //        std::cout << vettoreParole.size() << std::endl;
+            //            for(int i=0; i<vettoreParole.size(); i++) {
+            //                std::cout << vettoreParole[i] << " ";
+            //            }
+            //            std::cout << std::endl;
+            //            std::cout << vettoreParole.size() << std::endl;
 
             for(unsigned int i=0; i<vettoreParole.size(); i++) {
                 if(vettoreParole[i].length()>1) {
