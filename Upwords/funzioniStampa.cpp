@@ -1,13 +1,11 @@
-#include<vector>
 #include <costanti.h>
-#include <iostream>
 
 void stampaMatrice(char matrice[N][N]) {
     std::cout << "  ";
     for(int h=0; h<N; h++) {
         std::cout << h << " ";
     }
-    std::cout << "x" << std::endl;
+    std::cout << std::endl;
     for(int j=0; j<N; j++) {
         std::cout << j << " ";
         for(int l=0; l<N; l++) {
@@ -15,7 +13,7 @@ void stampaMatrice(char matrice[N][N]) {
         }
         std::cout << std::endl;
     }
-    std::cout << "y" <<std::endl;
+
 }
 
 void stampaParola(std::vector<char> parola) {

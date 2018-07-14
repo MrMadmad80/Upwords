@@ -1,10 +1,7 @@
 #ifndef FUNZIONIGIOCO_H
 #define FUNZIONIGIOCO_H
 
-#include<vector>
-#include<string>
 #include <costanti.h>
-#include <iostream>
 
 void estrazioneLettere(std::vector<char> &lettera, int nLettereDaEstrarre, int lettere[ALFABETO]);
 void cambiaLettera(giocatore *g, int lettere[ALFABETO]);

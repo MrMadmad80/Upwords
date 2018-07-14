@@ -1,6 +1,7 @@
 #ifndef COSTANTI_H
 #define COSTANTI_H
 
+#include <iostream>
 #include <vector>
 #include <string>
 

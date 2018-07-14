@@ -1,7 +1,4 @@
-#include<vector>
-#include <string>
 #include<fstream>
-#include <iostream>
 #include <costanti.h>
 
 bool controlloDizionario(std::string parola) {   //controlla se la parola è presente nel dizionario

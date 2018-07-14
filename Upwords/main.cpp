@@ -1,6 +1,3 @@
-#include <iostream>
-#include <vector>
-#include <string.h>
 #include <time.h>
 #include <algorithm>
 #include <conio.h>
@@ -145,9 +142,16 @@ int main()
             terminaPartita = true;
             cout << "tutti i giocatori hanno passato di loro volonta', la partita termina" << endl;
         } else {
+            if(counter%elencoGiocatori.size() == 3) {
+                for(int i=0; i<turnoGiocato.size(); i++) {
+                    turnoGiocato[i] = true;  //si reimposta il vettore dei turni giocati per far giocare tutti
+                }
+            }
+
             counter++;
             cout << elencoGiocatori.at(z)->nome << ": " << elencoGiocatori.at(z)->punti << " punti" << endl;
             cout << "il gioco passa al giocatore successivo" << endl;
+
         }
         Sleep(4000);
         system("cls");

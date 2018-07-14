@@ -1,7 +1,4 @@
-#include<vector>
-#include<string>
 #include <costanti.h>
-#include <iostream>
 #include <funzioniControllo.h>
 
 
@@ -83,6 +80,52 @@ void cancellaDaRack(char lettera, giocatore *g) {
     }
 }
 
+void aggiungiPuntiPerdenticolari(char campoDiGioco[][N], int altezza[][N], int r, int c, char senso, giocatore *g) {
+    //aggiunge i punti fatti con le nuove parole formate perpendicolarmente
+
+    int riga = r;
+    int colonna = c;
+    if(senso=='v') {
+        while(campoDiGioco[riga][colonna+1] != '.' && colonna+1<N) {
+            if(altezza[riga][colonna+1]==0) {
+                g->punti += 2;
+            } else {
+                g->punti+= 1;
+            }
+            colonna++;
+        }
+        colonna = c;
+        while(campoDiGioco[riga][colonna-1] != '.' && colonna-1>=0) {
+            if(altezza[riga][colonna-1]==0) {
+                g->punti += 2;
+            } else {
+                g->punti+= 1;
+            }
+            colonna--;
+        }
+    }
+
+    if(senso=='o') {
+        while(campoDiGioco[riga+1][colonna] != '.' && riga+1<N) {
+            if(altezza[riga+1][colonna]==0) {
+                g->punti += 2;
+            } else {
+                g->punti+= 1;
+            }
+            riga++;
+        }
+        riga = r;
+        while(campoDiGioco[riga-1][colonna] != '.' && riga-1>=0) {
+            if(altezza[riga-1][colonna]==0) {
+                g->punti += 2;
+            } else {
+                g->punti+= 1;
+            }
+            riga--;
+        }
+    }
+}
+
 
 void inserimentoParola(std::string parola, char campoDiGioco[][N], int altezza[][N], giocatore *g) {
     std::string s;
@@ -140,6 +183,7 @@ void inserimentoParola(std::string parola, char campoDiGioco[][N], int altezza[]
                                 g->punti += 1;
                                 altezza[riga+k][colonna]++;
                             }
+//                            aggiungiPuntiPerdenticolari(campoDiGioco, altezza, riga, colonna, senso, g);
                             campoDiGioco[riga+k][colonna] = parola[k];
                             cancellaDaRack(parola[k], g);
                         } else {
@@ -179,6 +223,7 @@ void inserimentoParola(std::string parola, char campoDiGioco[][N], int altezza[]
                                 g->punti+= 1;
                                 altezza[riga][colonna+k]++;
                             }
+//                            aggiungiPuntiPerdenticolari(campoDiGioco, altezza, riga, colonna, senso, g);
                             campoDiGioco[riga][colonna+k] = parola[k];
                             cancellaDaRack(parola[k], g);
                         } else {
