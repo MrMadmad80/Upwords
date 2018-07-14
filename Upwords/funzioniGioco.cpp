@@ -101,12 +101,12 @@ void inserimentoParola(std::string parola, char campoDiGioco[][N], int altezza[]
         std::cin >> s;
         std::cout << std::endl;
 
-        int colonna = stoi(c);
-        int riga = stoi(r);
+        int colonna = (int) c[0] - 48;
+        int riga = (int) r[0] - 48;
         char senso = s[0];
 
         if((senso!='v' && senso !='o') || colonna>9 || riga>9 || colonna<0 || riga<0) {
-//            std::cout << "riga " <<  riga << " colonna " << colonna << " senso " << senso << std::endl;
+            //            std::cout << "riga " <<  riga << " colonna " << colonna << " senso " << senso << std::endl;
             std::cout << "il carattere inserito non e' corretto" << std::endl;
             std::cout << "tentativi rimasti: " << 3 - (ntentativi+1) << std::endl;
             ntentativi++;
@@ -119,24 +119,36 @@ void inserimentoParola(std::string parola, char campoDiGioco[][N], int altezza[]
                 std::cout << "la parola e' troppo lunga per questo posto" << std::endl;
             } else if(!controlloAltezza(riga, colonna, parola.length(), senso, altezza)) {
                 std::cout << "hai raggiunto il limite in altezza" << std::endl;
-            } else std::cout << "la parola non rispetta le regole del gioco" << std::endl;
+            } else {
+                //                std::cout << "riga " << riga << " colonna " << colonna << " senso " << senso << std::endl;
+                std::cout << "la parola non rispetta le regole del gioco" << std::endl;
+            }
 
             std::cout << "tentativi rimasti: " << 3 - (ntentativi+1) << std::endl;
             ntentativi++;
 
         } else {
             if(senso=='v') {
-                if(controlloAltezza(riga,colonna,parola.length(),senso,altezza)) {  //inserire qui controllo incroci
+                if(controlloIncrocio(parola, campoDiGioco, riga, colonna, senso, g)) {  //inserire qui controllo incroci
                     for(unsigned int k=0; k<parola.length(); k++) {
-                        if(parola[k]=='\0') break;
-                        campoDiGioco[riga+k][colonna] = parola[k];
-                        if(altezza[riga+k][colonna]==0) {
-                            g->punti += 2;
-                            altezza[riga+k][colonna]++;
-                        } else g->punti += 1;
-                        cancellaDaRack(parola[k], g);
+                        if(parola[k]!=campoDiGioco[riga+k][colonna]) {
+
+                            if(altezza[riga+k][colonna]==0) {
+                                g->punti += 2;
+                                altezza[riga+k][colonna]++;
+                            } else {
+                                g->punti += 1;
+                                altezza[riga+k][colonna]++;
+                            }
+                            campoDiGioco[riga+k][colonna] = parola[k];
+                            cancellaDaRack(parola[k], g);
+                        } else {
+                            if(altezza[riga+k][colonna]==1) {
+                                g->punti += 2;
+                            } else g->punti += 1;
+                        }
                     }
-                    if(g->rack.size()==7) g->punti += 20;
+                    if(g->rack.size()==0) g->punti += 20;
 
                     //ciclo per togliere X
                     for(int g=0; g<N; g++) {
@@ -148,21 +160,34 @@ void inserimentoParola(std::string parola, char campoDiGioco[][N], int altezza[]
                     }
 
                     break;
+                } else {
+                    std::cout << "questa mossa non e' valida" << std::endl;
+                    std::cout << "tentativi rimasti: " << 3 - (ntentativi+1) << std::endl;
+                    ntentativi++;
                 }
             }
 
             if(senso=='o') {
-                if(controlloAltezza(riga,colonna,parola.length(), senso ,altezza)) {  //inserire qui controllo incroci
+                if(controlloIncrocio(parola, campoDiGioco, riga, colonna, senso, g)) {  //inserire qui controllo incroci
                     for(unsigned int k=0; k<parola.length(); k++) {
-                        if(parola[k]=='\0') break;
-                        campoDiGioco[riga][colonna+k] = parola[k];
-                        if(altezza[riga][colonna+k]==0) {
-                            g->punti += 2;
-                            altezza[riga][colonna+k]++;
-                        } else g->punti+= 1;
-                        cancellaDaRack(parola[k], g);
+                        if(parola[k]!=campoDiGioco[riga][colonna+k]) {
+
+                            if(altezza[riga][colonna+k]==0) {
+                                g->punti += 2;
+                                altezza[riga][colonna+k]++;
+                            } else {
+                                g->punti+= 1;
+                                altezza[riga][colonna+k]++;
+                            }
+                            campoDiGioco[riga][colonna+k] = parola[k];
+                            cancellaDaRack(parola[k], g);
+                        } else {
+                            if(altezza[riga][colonna+k]==1) {
+                                g->punti += 2;
+                            } else g->punti += 1;
+                        }
                     }
-                    if(g->rack.size()==7) g->punti += 20;
+                    if(g->rack.size()==0) g->punti += 20;
 
                     //ciclo per togliere X
                     for(int g=0; g<N; g++) {
@@ -174,6 +199,10 @@ void inserimentoParola(std::string parola, char campoDiGioco[][N], int altezza[]
                     }
 
                     break;
+                } else {
+                    std::cout << "questa mossa non e' valida" << std::endl;
+                    std::cout << "tentativi rimasti: " << 3 - (ntentativi+1) << std::endl;
+                    ntentativi++;
                 }
             }
         }

@@ -53,6 +53,9 @@ int main()
 
     vector<bool> turnoGiocato;
 
+    cout << "ricorda: il gioco finisce quando tutti i giocatori scelgono di passare" << endl;
+    cout << endl;
+
     for(unsigned int i=0; i<elencoGiocatori.size(); i++) {
         turnoGiocato.push_back(true);
     }
@@ -66,28 +69,31 @@ int main()
         stampaMatrice(g1);
 
         cout << "e' il turno di: " << elencoGiocatori.at(z)->nome << endl;
+        cout <<"hai " << elencoGiocatori.at(z)->punti << " punti" << endl;
+        cout << endl;
 
         stampaRackGiocatore(elencoGiocatori.at(z));
 
-        char input;
+        cout << endl;
+        string input;
 
         cout << "vuoi un suggerimento? [s per si/qualsiasi altra per no]" <<endl;
         cin >> input;
 
-        if(input == 's') {
+        if(input[0] == 's') {
             trovaSuggerimento(elencoGiocatori.at(z));
         }
 
         cout << "premi p se vuoi passare, qualsiasi altro tasto se vuoi inserire una parola" << endl;
         cin >> input;
 
-        if(input == 'p') {
+        if(input[0] == 'p') {
             turnoGiocato[z] = false;
 
             cout << "vuoi cambiare una lettera? [s per si/qualsiasi altra per no]" << endl;
             cin >> input;
             cout << endl;
-            if(input == 's') {
+            if(input[0] == 's') {
                 cambiaLettera(elencoGiocatori.at(z), nLettereIniziali);
                 stampaRackGiocatore(elencoGiocatori.at(z));
             }
@@ -104,8 +110,6 @@ int main()
                 cin>> parola;
 
                 if(parola.length()<=10) {
-                    int l = parola.length();
-//                    cout << "lunghezza: " << l << endl;
 
                     if(controlloDizionario(parola)) {
                         inserimentoParola(parola, g1, matriceAltezza, elencoGiocatori.at(z));
@@ -128,6 +132,13 @@ int main()
                 }
             }
             stampaMatrice(g1);
+//            cout << endl;
+//            for(int i=0; i<N; i++) {
+//                for(int j=0; j<N; j++) {
+//                    cout << matriceAltezza[i][j] << " ";
+//                }
+//                cout << endl;
+//            }
 
         }
         if(none_of(turnoGiocato.begin(), turnoGiocato.end(), [](bool i){return i;})) {
