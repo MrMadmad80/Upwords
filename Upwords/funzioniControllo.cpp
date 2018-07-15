@@ -2,7 +2,14 @@
 #include <funzioniDizionario.h>
 //#include <funzioniStampa.h>
 
-
+int controlloIntero(std::string input) {
+    try {
+        return std::stoi(input);
+    }
+    catch (...) {
+        return 0;
+    }
+}
 
 bool controlloSpazioOrizzontale(int lunghezzaParola, int colonna) {
     if(lunghezzaParola+colonna >10) {

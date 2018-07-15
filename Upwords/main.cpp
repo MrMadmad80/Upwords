@@ -142,7 +142,7 @@ int main()
             terminaPartita = true;
             cout << "tutti i giocatori hanno passato di loro volonta', la partita termina" << endl;
         } else {
-            if(counter%elencoGiocatori.size() == 3) {
+            if(counter%elencoGiocatori.size() == elencoGiocatori.size()-1) {
                 for(int i=0; i<turnoGiocato.size(); i++) {
                     turnoGiocato[i] = true;  //si reimposta il vettore dei turni giocati per far giocare tutti
                 }

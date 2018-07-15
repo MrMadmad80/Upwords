@@ -274,17 +274,19 @@ void inserimentoParola(std::string parola, char campoDiGioco[][N], int altezza[]
 
 void inizializzaGiocatori() {
     std::cout << "Scegli il numero di giocatori (da 2 a 4)"  << std::endl;
-    char ngiocatori;
+    std::string ngiocatori;
+    int ng =0;
     bool flag = false;
     while(flag == false) {
         std::cin>> ngiocatori;
-        if(((int)ngiocatori)-48 < 2 || ((int)ngiocatori)-48 > 4) {
+        ng = controlloIntero(ngiocatori);
+        if(ng < 2 || ng > 4) {
             std::cout << "numero non valido, riprova" << std::endl;
         } else {
             flag = true;
         }
     }
-    for(int i=0; i<((int)ngiocatori)-48; i++) {
+    for(int i=0; i<ng; i++) {
         giocatore* g = new giocatore;
         g->punti = 0;
         std::cout << "inserisci il tuo nome: ";

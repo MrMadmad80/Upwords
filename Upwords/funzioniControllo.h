@@ -3,6 +3,7 @@
 
 #include <costanti.h>
 
+int controlloIntero(std::string input);
 bool controlloSpazioOrizzontale(int lunghezzaParola, int yInizio);
 bool controlloSpazioVerticale(int lunghezzaParola, int xInizio);
 int calcoloLunghezzaParola(std::string parola);
