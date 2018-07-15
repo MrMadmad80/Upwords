@@ -87,39 +87,55 @@ void aggiungiPuntiPerdenticolari(char campoDiGioco[][N], int altezza[][N], int r
     int colonna = c;
     if(senso=='v') {
         while(campoDiGioco[riga][colonna+1] != '.' && colonna+1<N) {
+            if(campoDiGioco[riga][colonna+1] != 'X') {
             if(altezza[riga][colonna+1]==0) {
                 g->punti += 2;
+//                std::cout << "2 punti casella r" << riga << " colonna" << colonna+1 << " contenuto " << campoDiGioco[riga][colonna+1]<< std::endl;
             } else {
+//                std::cout << "1 punti casella r" << riga << " colonna" << colonna+1 << " contenuto " << campoDiGioco[riga][colonna+1]<<std::endl;
                 g->punti+= 1;
+            }
             }
             colonna++;
         }
         colonna = c;
         while(campoDiGioco[riga][colonna-1] != '.' && colonna-1>=0) {
+            if(campoDiGioco[riga][colonna-1] != 'X') {
             if(altezza[riga][colonna-1]==0) {
                 g->punti += 2;
+//                std::cout << "2 punti casella r" << riga << " colonna" << colonna-1 <<" contenuto " << campoDiGioco[riga][colonna-1]<< std::endl;
             } else {
                 g->punti+= 1;
+//                std::cout << "1 punti casella r" << riga << " colonna" << colonna-1 << " contenuto " << campoDiGioco[riga][colonna-1]<<std::endl;
+            }
             }
             colonna--;
         }
     }
 
     if(senso=='o') {
-        while(campoDiGioco[riga+1][colonna] != '.' && riga+1<N) {
+        while(campoDiGioco[riga+1][colonna] != '.' &&  riga+1<N) {
+            if(campoDiGioco[riga+1][colonna] != 'X') {
             if(altezza[riga+1][colonna]==0) {
                 g->punti += 2;
+//                std::cout << "2 punti casella r" << riga+1 << " colonna" << colonna << " contenuto " << campoDiGioco[riga+1][colonna]<<std::endl;
             } else {
                 g->punti+= 1;
+//                std::cout << "1 punti casella r" << riga+1 << " colonna" << colonna << " contenuto " << campoDiGioco[riga+1][colonna]<<std::endl;
+            }
             }
             riga++;
         }
         riga = r;
         while(campoDiGioco[riga-1][colonna] != '.' && riga-1>=0) {
+            if(campoDiGioco[riga-1][colonna] != 'X') {
             if(altezza[riga-1][colonna]==0) {
                 g->punti += 2;
+//                std::cout << "2 punti casella r" << riga-1 << " colonna" << colonna << " contenuto " << campoDiGioco[riga-1][colonna]<<std::endl;
             } else {
                 g->punti+= 1;
+//                std::cout << "1 punti casella r" << riga-1 << " colonna" << colonna << " contenuto " << campoDiGioco[riga-1][colonna]<<std::endl;
+            }
             }
             riga--;
         }
@@ -183,7 +199,7 @@ void inserimentoParola(std::string parola, char campoDiGioco[][N], int altezza[]
                                 g->punti += 1;
                                 altezza[riga+k][colonna]++;
                             }
-//                            aggiungiPuntiPerdenticolari(campoDiGioco, altezza, riga, colonna, senso, g);
+                            aggiungiPuntiPerdenticolari(campoDiGioco, altezza, riga, colonna, senso, g);
                             campoDiGioco[riga+k][colonna] = parola[k];
                             cancellaDaRack(parola[k], g);
                         } else {
@@ -223,7 +239,7 @@ void inserimentoParola(std::string parola, char campoDiGioco[][N], int altezza[]
                                 g->punti+= 1;
                                 altezza[riga][colonna+k]++;
                             }
-//                            aggiungiPuntiPerdenticolari(campoDiGioco, altezza, riga, colonna, senso, g);
+                            aggiungiPuntiPerdenticolari(campoDiGioco, altezza, riga, colonna, senso, g);
                             campoDiGioco[riga][colonna+k] = parola[k];
                             cancellaDaRack(parola[k], g);
                         } else {

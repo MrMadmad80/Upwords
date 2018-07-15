@@ -153,7 +153,7 @@ int main()
             cout << "il gioco passa al giocatore successivo" << endl;
 
         }
-        Sleep(4000);
+        Sleep(5000);
         system("cls");
     }
     cout << "CLASSIFICA FINALE" << endl;
