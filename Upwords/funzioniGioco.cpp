@@ -82,6 +82,7 @@ void cancellaDaRack(char lettera, giocatore *g) {
 
 void aggiungiPuntiPerdenticolari(char campoDiGioco[][N], int altezza[][N], int r, int c, char senso, giocatore *g) {
     //aggiunge i punti fatti con le nuove parole formate perpendicolarmente
+    //per ora aggiunge troppi punti
 
     int riga = r;
     int colonna = c;
@@ -199,7 +200,7 @@ void inserimentoParola(std::string parola, char campoDiGioco[][N], int altezza[]
                                 g->punti += 1;
                                 altezza[riga+k][colonna]++;
                             }
-                            aggiungiPuntiPerdenticolari(campoDiGioco, altezza, riga, colonna, senso, g);
+//                            aggiungiPuntiPerdenticolari(campoDiGioco, altezza, riga, colonna, senso, g);
                             campoDiGioco[riga+k][colonna] = parola[k];
                             cancellaDaRack(parola[k], g);
                         } else {
@@ -239,7 +240,7 @@ void inserimentoParola(std::string parola, char campoDiGioco[][N], int altezza[]
                                 g->punti+= 1;
                                 altezza[riga][colonna+k]++;
                             }
-                            aggiungiPuntiPerdenticolari(campoDiGioco, altezza, riga, colonna, senso, g);
+//                            aggiungiPuntiPerdenticolari(campoDiGioco, altezza, riga, colonna, senso, g);
                             campoDiGioco[riga][colonna+k] = parola[k];
                             cancellaDaRack(parola[k], g);
                         } else {

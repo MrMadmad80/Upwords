@@ -63,7 +63,7 @@ int main()
 
         int z = counter%elencoGiocatori.size();
 
-        stampaMatrice(g1);
+        stampaMatrice(g1, matriceAltezza);
 
         cout << "e' il turno di: " << elencoGiocatori.at(z)->nome << endl;
         cout <<"hai " << elencoGiocatori.at(z)->punti << " punti" << endl;
@@ -128,7 +128,7 @@ int main()
                     flag = true;
                 }
             }
-            stampaMatrice(g1);
+            stampaMatrice(g1, matriceAltezza);
 //            cout << endl;
 //            for(int i=0; i<N; i++) {
 //                for(int j=0; j<N; j++) {

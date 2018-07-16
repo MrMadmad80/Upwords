@@ -1,7 +1,11 @@
 #include <costanti.h>
 
-void stampaMatrice(char matrice[N][N]) {
+void stampaMatrice(char matrice[N][N], int altezza[N][N]) {
     std::cout << "  ";
+    for(int h=0; h<N; h++) {
+        std::cout << h << " ";
+    }
+    std::cout << "    ";
     for(int h=0; h<N; h++) {
         std::cout << h << " ";
     }
@@ -10,6 +14,12 @@ void stampaMatrice(char matrice[N][N]) {
         std::cout << j << " ";
         for(int l=0; l<N; l++) {
             std::cout << matrice[j][l] << " ";
+        }
+        std::cout << "    ";
+        for(int l=0; l<N; l++) {
+            if(altezza[j][l]!=0) {
+            std::cout << altezza[j][l] << " ";
+            } else std::cout << '.' << " ";
         }
         std::cout << std::endl;
     }
